@@ -34,30 +34,5 @@ void turnOnLED() {
 
 void loop() {
     btn1.startBtnLoop(turnOnLED, turnOffLED, toggleLED);
+    // btn1.startBtnLoop(toggleLED, NULL, NULL);
 }
-
-
-
-
-
-//             btnPressed = 1;
-//             trigBtnState = btnState;
-
-
-
-// this function must be put in the main loop to set the relay timer and close
-// the relay when the button is pressed
-// void executeActionOnBtnPress() {
-//     if (btnPressed) {
-//         // execute button press action
-//         // if relay is on, a button press would turn it off.
-//         // if (relayState) {
-//         //     setRelay(false);
-//         // }
-//         // else {
-//         //     setRelay(true);
-//         // }
-//         // reset buttonPressed value
-//         btnPressed = 0;
-//     }
-// }

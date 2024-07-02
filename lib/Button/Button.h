@@ -14,7 +14,7 @@ class Button {
     public:
         Button(int pin);
         void begin();
-        void startBtnLoop(void (*shortPressFunc)(), void (*longPressFunc)(), void (*doubleShortPressFunc)());
+        void startLoop(void (*shortPressFunc)(), void (*longPressFunc)(), void (*doubleShortPressFunc)());
     private:
         int _pin;
         bool _btnState, _lastBtnState, _trigBtnState, _btnSurePressed;

@@ -33,6 +33,6 @@ void turnOnLED() {
 }
 
 void loop() {
-    btn1.startBtnLoop(turnOnLED, turnOffLED, toggleLED);
+    btn1.startLoop(turnOnLED, turnOffLED, toggleLED);
     // btn1.startBtnLoop(toggleLED, NULL, NULL);
 }

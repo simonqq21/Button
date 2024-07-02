@@ -9,7 +9,7 @@ void Button::begin() {
     pinMode(_pin, INPUT_PULLUP);
 }
 
-void Button::startBtnLoop(void (*shortPressFunc)(), void (*longPressFunc)(), 
+void Button::startLoop(void (*shortPressFunc)(), void (*longPressFunc)(), 
                         void (*doubleShortPressFunc)()) {
     _btnState = digitalRead(_pin); // poll button state
     if (_btnState != _lastBtnState) { // if button state changes, start debouncing timer

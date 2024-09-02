@@ -30,9 +30,13 @@ void setup() {
   Serial.begin(115200);
   btn1.begin();
   pinMode(led_pin, OUTPUT);
-  btn1.setShortPressFunc(turnOnLED);
-  btn1.setLongPressFunc(turnOffLED);
-  btn1.setDoublePressFunc(toggleLED);
+//   btn1.setShortPressFunc(turnOnLED);
+//   btn1.setLongPressFunc(turnOffLED);
+//   btn1.setDoublePressFunc(toggleLED);
+
+  btn1.setShortPressFunc(toggleLED);
+  btn1.setLongPressFunc();
+  btn1.setDoublePressFunc();
 }
 
 void loop() {

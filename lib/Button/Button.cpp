@@ -49,7 +49,9 @@ void Button::loop() {
                 if (_buttonPresses >= 2) {
                     _btnPressed = BUTTON_DOUBLE_SHORT_PRESS;
                     Serial.println("button double short pressed ");
-                    _doubleShortPressFunc(); // run short press callback
+                    if (_doubleShortPressFunc != NULL) {
+                        _doubleShortPressFunc(); // run short press callback
+                    }
                     _buttonPresses = 0;
                     _doublePressTimer = millis();
                 }
@@ -62,7 +64,9 @@ void Button::loop() {
     if (millis() - _doublePressTimer >= DELAY_DBLPRESS && _buttonPresses > 0) {
         _btnPressed = BUTTON_SHORT_PRESS;
         Serial.println("button short pressed ");
-        _shortPressFunc(); // run short press callback
+        if (_shortPressFunc != NULL) {
+            _shortPressFunc(); // run short press callback
+        }
         _buttonPresses = 0;
         _doublePressTimer = millis();
     }
@@ -71,7 +75,9 @@ void Button::loop() {
     if (_btnSurePressed && _timePressed > DELAY_LONG_PRESS) { // if button still held down, it is a long press.
         _btnPressed = BUTTON_LONG_PRESS;
         Serial.println("button long pressed ");
-        _longPressFunc(); // run long press callback
+        if (_longPressFunc != NULL) {
+            _longPressFunc(); // run long press callback
+        }
         _btnSurePressed = false;
         _trigBtnState = _btnState;
     }

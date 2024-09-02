@@ -9,8 +9,19 @@ void Button::begin() {
     pinMode(_pin, INPUT_PULLUP);
 }
 
-void Button::startLoop(void (*shortPressFunc)(), void (*longPressFunc)(), 
-                        void (*doubleShortPressFunc)()) {
+void Button::setShortPressFunc(void (*shortPressFunc)()) {
+    _shortPressFunc = shortPressFunc;
+}
+
+void Button::setLongPressFunc(void (*longPressFunc)()) {
+    _longPressFunc = longPressFunc;
+}
+
+void Button::setDoublePressFunc(void (*doubleShortPressFunc)()) {
+    _doubleShortPressFunc = doubleShortPressFunc;
+}
+
+void Button::loop() {
     _btnState = digitalRead(_pin); // poll button state
     if (_btnState != _lastBtnState) { // if button state changes, start debouncing timer
                                     // and save button states.
@@ -38,7 +49,7 @@ void Button::startLoop(void (*shortPressFunc)(), void (*longPressFunc)(),
                 if (_buttonPresses >= 2) {
                     _btnPressed = BUTTON_DOUBLE_SHORT_PRESS;
                     Serial.println("button double short pressed ");
-                    doubleShortPressFunc(); // run short press callback
+                    _doubleShortPressFunc(); // run short press callback
                     _buttonPresses = 0;
                     _doublePressTimer = millis();
                 }
@@ -51,7 +62,7 @@ void Button::startLoop(void (*shortPressFunc)(), void (*longPressFunc)(),
     if (millis() - _doublePressTimer >= DELAY_DBLPRESS && _buttonPresses > 0) {
         _btnPressed = BUTTON_SHORT_PRESS;
         Serial.println("button short pressed ");
-        shortPressFunc(); // run short press callback
+        _shortPressFunc(); // run short press callback
         _buttonPresses = 0;
         _doublePressTimer = millis();
     }
@@ -60,7 +71,7 @@ void Button::startLoop(void (*shortPressFunc)(), void (*longPressFunc)(),
     if (_btnSurePressed && _timePressed > DELAY_LONG_PRESS) { // if button still held down, it is a long press.
         _btnPressed = BUTTON_LONG_PRESS;
         Serial.println("button long pressed ");
-        longPressFunc(); // run long press callback
+        _longPressFunc(); // run long press callback
         _btnSurePressed = false;
         _trigBtnState = _btnState;
     }

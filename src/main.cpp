@@ -1,18 +1,11 @@
 #include <Arduino.h>
 #include <Button.h>
 
-int button_pin = 18;
-int led_pin = 5;
+int button_pin = 4;
+int led_pin = 13;
 bool ledState;
 
 Button btn1(button_pin);
-
-void setup() {
-  // put your setup code here, to run once:
-  Serial.begin(115200);
-  btn1.begin();
-  pinMode(led_pin, OUTPUT);
-}
 
 void toggleLED() {
     ledState = !ledState;
@@ -32,7 +25,17 @@ void turnOnLED() {
     Serial.println("turned on LED");
 }
 
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin(115200);
+  btn1.begin();
+  pinMode(led_pin, OUTPUT);
+  btn1.setShortPressFunc(turnOnLED);
+  btn1.setLongPressFunc(turnOffLED);
+  btn1.setDoublePressFunc(toggleLED);
+}
+
 void loop() {
-    btn1.startLoop(turnOnLED, turnOffLED, toggleLED);
+    btn1.loop();
     // btn1.startBtnLoop(toggleLED, NULL, NULL);
 }

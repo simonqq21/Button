@@ -14,13 +14,18 @@ class Button {
     public:
         Button(int pin);
         void begin();
-        void startLoop(void (*shortPressFunc)(), void (*longPressFunc)(), void (*doubleShortPressFunc)());
+        void setShortPressFunc(void (*shortPressFunc)() = NULL);
+        void setLongPressFunc(void (*longPressFunc)() = NULL);
+        void setDoublePressFunc(void (*doubleShortPressFunc)() = NULL);
+        void loop();
     private:
         int _pin;
         bool _btnState, _lastBtnState, _trigBtnState, _btnSurePressed;
         unsigned long _lastDebounceTime, _longPressTimer, _doublePressTimer;
         int _btnPressed, _timePressed, _buttonPresses;
-
+        void (*_shortPressFunc)();
+        void (*_longPressFunc)();
+        void (*_doubleShortPressFunc)();
 };
 
 #endif
